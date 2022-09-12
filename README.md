@@ -1,4 +1,8 @@
-# How to use
+# 📕 Description 📕
+- It is a simple console app that calls a [function](https://waves-dapp.com/3PCbvPVQfSvVu88ip8Fm5YjwJhjEYk1Txhk#withdrawVestedAllUSDN) of the vires smart contract in the infinity loop.
+
+
+# ⚒ How to use it ⚒ 
 ````
 mvn package
 export WAVES_SEED='your seed'
