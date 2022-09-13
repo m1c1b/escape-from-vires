@@ -8,3 +8,10 @@ mvn package
 export WAVES_SEED='your seed'
 java -jar target/escape-from-vires-1.0-jar-with-dependencies.jar
 ````
+or
+
+````
+export WAVES_SEED='your seed'
+java -jar target/escape-from-vires-1.0-jar-with-dependencies.jar
+````
+if you took jar from releases page
