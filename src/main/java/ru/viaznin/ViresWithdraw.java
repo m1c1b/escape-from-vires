@@ -3,13 +3,14 @@ package ru.viaznin;
 import com.wavesplatform.transactions.InvokeScriptTransaction;
 import com.wavesplatform.transactions.account.Address;
 import com.wavesplatform.transactions.account.PrivateKey;
-import com.wavesplatform.transactions.invocation.Function;
 import com.wavesplatform.wavesj.Node;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.log4j.Log4j2;
 
+import static com.wavesplatform.transactions.InvokeScriptTransaction.builder;
 import static com.wavesplatform.transactions.invocation.BooleanArg.as;
+import static com.wavesplatform.transactions.invocation.Function.as;
 import static com.wavesplatform.wavesj.Profile.MAINNET;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static lombok.AccessLevel.PRIVATE;
@@ -41,14 +42,13 @@ public class ViresWithdraw {
         var executorPk = PrivateKey.fromSeed(cfg.getSeed());
         var viresSc = new Address(cfg.getViresContract());
 
-        var tx = InvokeScriptTransaction
-                .builder(viresSc, Function.as(cfg.getViresVestingFunc(), as(false), as(true)))
-                .getSignedWith(executorPk);
-
         while (true) {
             var height = n.getLastBlock().height();
-
             log.info("Skipping execution. Current height is " + height);
+
+            var tx =
+                    builder(viresSc, as(cfg.getViresVestingFunc(), as(false), as(true)))
+                            .getSignedWith(executorPk);
             if (executeTx(tx))
                 log.info("Success execution! TxId: " + tx.id());
 
